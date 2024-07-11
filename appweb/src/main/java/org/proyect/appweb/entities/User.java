@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.Date;
 
-
 @Entity
 @Table (name = "Users")
 @Data
@@ -35,9 +34,8 @@ public class User {
     @Column (name = "password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "rol usuario", nullable = false)
-    private Rolename rol_usuario;
+    @Column (name = "rol usuario")
+    private String rol_usuario;
 
     @Column (name = "birthDate")
     private Date birthDate;
@@ -47,5 +45,4 @@ public class User {
 
     @Column (name = "createdAt")
     private LocalDate createdAt;
-
 }

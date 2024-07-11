@@ -6,17 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Roles")
+@Table(name = "Artists")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rol {
+public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "rol usuario")
-    private String rol_usuario;
-}
+    @Column (name = "name")
+    private String name;
 
+    @Column (name = "surname")
+    private String surname;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "typeArtist", nullable = false, unique = true)
+    private TypeArtist typeArtist;
+}
