@@ -1,9 +1,9 @@
 package org.proyect.appweb.repositories;
 
-import org.proyect.appweb.entities.Artist;
+import org.proyect.appweb.domain.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ArtistRepository extends JpaRepository <Artist,Long> {
+public interface RolDAO extends JpaRepository <Rol,Long> {
 }

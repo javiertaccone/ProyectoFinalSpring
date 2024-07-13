@@ -1,4 +1,4 @@
-package org.proyect.procesobatch.entities;
+package org.proyect.procesobatch.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

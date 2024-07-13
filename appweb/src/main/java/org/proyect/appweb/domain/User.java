@@ -1,4 +1,4 @@
-package org.proyect.appweb.entities;
+package org.proyect.appweb.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

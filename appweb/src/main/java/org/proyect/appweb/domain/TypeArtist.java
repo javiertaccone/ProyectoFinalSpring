@@ -1,4 +1,4 @@
-package org.proyect.appweb.entities;
+package org.proyect.appweb.domain;
 
 public enum TypeArtist {
     ACTOR,

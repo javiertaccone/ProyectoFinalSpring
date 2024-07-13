@@ -1,20 +1,15 @@
 package org.proyect.appweb;
 
-import org.proyect.appweb.entities.User;
-import org.proyect.appweb.repositories.UserRepository;
+import org.proyect.appweb.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 @SpringBootApplication
 public class AppwebApplication /*implements CommandLineRunner*/ {
 
 	@Autowired
-	public UserRepository userRepository;
+	public UserDAO userDAO;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppwebApplication.class, args);
