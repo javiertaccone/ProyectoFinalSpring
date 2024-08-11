@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Película</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Incluye tu cabecera aquí -->
+    <div th:replace="header2 :: myheader2"></div>
+    <style>
+        .img-container {
+            height: 650px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Columna para el póster -->
+        <div class="col-md-8 text-center">
+            <img
+                    th:src="@{${film.poster}}"
+                    alt="Poster de la película"
+                    class="img-fluid img-container"
+            />
+        </div>
+
+        <!-- Columna para la información de la película -->
+        <div class="col-md-4">
+            <h1 class="mb-3" th:text="${film.title}"></h1>
+            <p class="lead" th:text="'Año de Estreno: ' + ${film.releaseYear}"></p>
+
+            <h3>Director</h3>
+            <p th:text="${film.director.name + ' ' + film.director.surname}"></p>
+
+            <h3>Actores</h3>
+            <ul>
+                <li th:each="actor : ${film.actors}" th:text="${actor.name + ' ' + actor.surname}"></li>
+            </ul>
+
+            <form th:action="@{/puntuarFilm}" method="post" class="form-group">
+                <input type="hidden" name="filmId" th:value="${film.id}"/>
+                <!--<input type="hidden" name="userId" th:value="${user.id}"/>-->
+                <select class="form-control" required>
+                    <option value="" disabled selected>Selecciona una puntuación</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                </br>
+                <button type="submit" class="btn btn-primary">Valorar Película</button>
+            </form>
+
+
+            <a href="/searchFilm" class="btn btn-secondary mt-3">Volver</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

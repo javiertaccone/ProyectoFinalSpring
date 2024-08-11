@@ -1,15 +1,24 @@
 package org.proyect.appweb.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table (name = "Users")
+@Table (name = "Users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "username")
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,32 +28,42 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "name")
+    @NotBlank
+    @Size(max = 20)
+    @Column (name = "name", nullable = false)
     private String name;
 
-    @Column (name = "username")
+    @NotBlank
+    @Size(max = 20)
+    @Column (name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column (name = "email")
+    @NotBlank
+    @Email
+    @Column (name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column (name = "surname")
+    @NotBlank
+    @Size(max = 20)
+    @Column (name = "surname", nullable = false)
     private String surname;
 
-    @Column (name = "password")
+    @NotBlank
+    @Column (name = "password", nullable = false)
     private String password;
 
-    @Column (name = "rol usuario")
-    private String rol_usuario;
+    @ManyToOne
+    @JoinColumn(name = "rol_id", nullable = false)
+    private Rol rol;
 
-    @Column (name = "birthDate")
+    @Column (name = "birthDate", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @Column (name = "lastLoginAt")
-    private LocalDate lastLoginAt;
+    @CreationTimestamp private LocalDate lastLoginAt;
 
     @Column (name = "createdAt")
-    private LocalDate createdAt;
-
+    @CreationTimestamp private LocalDate createdAt;
 
 }

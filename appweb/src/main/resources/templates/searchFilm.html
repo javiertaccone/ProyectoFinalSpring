@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Películas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <div th:replace="header2 :: myheader2"></div>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Buscar Películas</h1>
+
+    <form th:action="@{/searchFilm}" method="post" class="mb-4">
+        <div class="form-group">
+            <label for="title">Título de la película</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Introduce el título de la película" />
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+
+        <div th:if="${error}" class="alert alert-danger mt-3">
+            <p th:text="${error}"></p>
+        </div>
+    </form>
+
+    <div th:if="${films}">
+        <h2 class="mb-4">Resultados de la búsqueda:</h2>
+        <div class="row">
+            <div th:each="film : ${films}" class="col-md-3 mb-4">
+                <!-- Envolvemos la tarjeta en un enlace para redirigir a la vista de detalle -->
+                <a th:href="@{/film/{id}(id=${film.id})}" class="text-decoration-none">
+                    <div class="card">
+                        <img
+                                style="
+                                    height: 310px;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+                                "
+                                th:src="@{${film.poster}}"
+                                class="card-img-top"
+                                alt="Poster"
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${film.title}"></h5>
+                            <p class="card-text" th:text="'Director: ' + ${film.director.name + ' ' + film.director.surname}"></p>
+                            <!-- Mostrar actores -->
+                            <p class="card-text">
+                                <span th:each="actor, iterStat : ${film.actors}" th:text="${iterStat.index > 0 ? ', ' : ''} + ${actor.name + ' ' + actor.surname}"></span>
+                            </p>
+                            <p class="card-text" th:text="'Estreno: ' + ${film.releaseYear}"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

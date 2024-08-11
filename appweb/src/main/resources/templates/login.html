@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <div th:replace="header :: myheader"></div>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-md-6">
+        <h1 class="text-center mb-4">Accede</h1>
+        <form th:action="@{/login}" th:object="${datosAcceso}" method="post">
+            <div class="form-group">
+                <label for="identificador">Email o Username</label>
+                <input type="text" th:field="*{identificador}" class="form-control" id="identificador" placeholder="Introduce tu email o username" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Introduce tu contraseña" />
+            </div>
+
+            <div th:if="${error != null}" class="alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Acceder</button>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

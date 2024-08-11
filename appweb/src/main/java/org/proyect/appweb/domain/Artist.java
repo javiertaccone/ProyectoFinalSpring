@@ -1,6 +1,7 @@
 package org.proyect.appweb.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +17,15 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "name")
+    @NotBlank
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column (name = "surname")
+    @NotBlank
+    @Column(name = "surname", nullable = false)
     private String surname;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "typeArtist", nullable = false, unique = true)
+    @Column(name = "typeArtist", nullable = false)
     private TypeArtist typeArtist;
 }

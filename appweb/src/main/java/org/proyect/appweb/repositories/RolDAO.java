@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RolDAO extends JpaRepository <Rol,Long> {
+
+    Rol findByRolType(String rol);
 }

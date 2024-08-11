@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Incluye tu cabecera aquí -->
+    <div th:replace="header2 :: myheader2"></div>
+    <style>
+        .img-container {
+            height: 630px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Columna para el formulario -->
+        <div class="col-md-6">
+            <h1 class="mb-4">Crear una Película</h1>
+
+            <!-- Formulario de registro -->
+            <form th:action="@{/createFilm}" th:object="${film}" method="post">
+                <div class="form-group">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="Introduce el título de la película"/>
+                </div>
+                <div class="form-group">
+                    <label for="releaseYear">Año de Estreno:</label>
+                    <input type="text" id="releaseYear" th:field="*{releaseYear}" class="form-control" placeholder="Introduce el año de estreno"/>
+                </div>
+                <div class="form-group">
+                    <label for="poster">Poster:</label>
+                    <input type="text" id="poster" th:field="*{poster}" class="form-control" placeholder="Introduce la URL del poster"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="directorID">Director:</label>
+                    <select id="directorID" th:field="*{directorID}" class="form-control">
+                        <option th:each="director : ${directors}" th:value="${director.id}" th:text="${director.name + ' ' + director.surname}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="actorsID">Actores:</label>
+                    <select id="actorsID" th:field="*{actorsID}" multiple="true" class="form-control">
+                        <option th:each="actor : ${actors}" th:value="${actor.id}" th:text="${actor.name + ' ' + actor.surname}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrar película</button>
+            </form>
+        </div>
+
+        <!-- Columna para la imagen -->
+        <div class="col-md-6 text-center">
+            <!-- Actualiza la ruta de la imagen con la ubicación de tu archivo local -->
+            <img src="/images/proyectimg1.jpg" alt="Imagen de Proyecto" class="img-fluid img-container"/>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

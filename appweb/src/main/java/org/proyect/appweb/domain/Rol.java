@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Roles")
 @Data
@@ -14,9 +16,12 @@ public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_rol;
 
-    @Column (name = "rol usuario")
-    private String rol_usuario;
+    @Column(name = "rol_type", nullable = false)
+    private String rolType;
+
+    @OneToMany(mappedBy = "rol")
+    private List<User> users;
 }
 
