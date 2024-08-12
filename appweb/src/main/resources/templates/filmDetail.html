@@ -41,7 +41,6 @@
 
             <form th:action="@{/puntuarFilm}" method="post" class="form-group">
                 <input type="hidden" name="filmId" th:value="${film.id}"/>
-                <!--<input type="hidden" name="userId" th:value="${user.id}"/>-->
                 <select class="form-control" required>
                     <option value="" disabled selected>Selecciona una puntuación</option>
                     <option>1</option>
@@ -53,7 +52,6 @@
                 </br>
                 <button type="submit" class="btn btn-primary">Valorar Película</button>
             </form>
-
 
             <a href="/searchFilm" class="btn btn-secondary mt-3">Volver</a>
         </div>

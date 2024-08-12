@@ -24,10 +24,10 @@ public class Register {
         try {
             userService.registerUser(userRegisterDTO);
             model.addAttribute("message", "Usuario registrado con éxito");
-            return "register";
         } catch (IllegalArgumentException e){
             model.addAttribute("error", e.getMessage());
+            return "register";
         }
-        return "register";
+        return "redirect:/login";
     }
 }

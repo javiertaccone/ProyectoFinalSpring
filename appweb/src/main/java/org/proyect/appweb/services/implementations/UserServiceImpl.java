@@ -2,16 +2,17 @@ package org.proyect.appweb.services.implementations;
 
 import org.proyect.appweb.domain.Rol;
 import org.proyect.appweb.domain.User;
-import org.proyect.appweb.dto.UserLoginDTO;
 import org.proyect.appweb.dto.UserRegisterDTO;
 import org.proyect.appweb.repositories.RolDAO;
 import org.proyect.appweb.repositories.UserDAO;
 import org.proyect.appweb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-/*import org.springframework.security.core.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;*/
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RolDAO rolDAO;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void registerUser(UserRegisterDTO userRegisterDTO) {
         if (userDAO.existsByUsername(userRegisterDTO.getUsername())) {
@@ -30,7 +34,6 @@ public class UserServiceImpl implements UserService {
         if (userDAO.existsByEmail(userRegisterDTO.getEmail())) {
             throw new IllegalArgumentException("Ya hay un usuario con ese correo");
         }
-
 
         Rol rol = rolDAO.findByRolType("user");
         if (rol == null) {
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userRegisterDTO.getName());
         user.setEmail(userRegisterDTO.getEmail());
         user.setSurname(userRegisterDTO.getSurname());
-        user.setPassword(userRegisterDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
         user.setBirthDate(userRegisterDTO.getBirthDate());
         user.setRol(rol);
 
@@ -52,38 +55,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean validarDatosAcceso(UserLoginDTO userLoginDTO) {
-    String identificador = userLoginDTO.getIdentificador();
-    User user = null;
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDAO.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
 
-    if (userDAO.existsByUsername((identificador))){
-        user = userDAO.findByUsername(identificador);
-    } else if (userDAO.existsByEmail(identificador)){
-        user = userDAO.findByEmail(identificador);
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .roles(user.getRol().getRolType())
+                .build();
     }
 
-    if (user == null){
-        throw new IllegalArgumentException("Usuario no encontrado");
-    }
-
-    if (user.getPassword().equals(userLoginDTO.getPassword())){
-        return true;
-    } else {
-        throw new IllegalArgumentException("Contraseña invalida");
-    }
-    }
-
-/*    @Override
-    public Long getAuthenticatedUserId(){
+    @Override
+    public Long getAuthenticatedUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
             String username = userDetails.getUsername();
             User user = userDAO.findByUsername(username);
-            if (user != null) {
-                return user.getId();
-            }
-        }
-        return null;
-    }*/
+            return user.getId();
+    }
+
+
 }

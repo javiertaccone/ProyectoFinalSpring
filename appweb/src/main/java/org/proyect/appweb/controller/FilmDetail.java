@@ -20,8 +20,7 @@ public class FilmDetail {
     @Autowired
     private FilmService filmService;
 
-    @Autowired
-    private UserService userService;
+    @Autowired UserService userService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -35,7 +34,8 @@ public class FilmDetail {
         model.addAttribute("film", film);
         return "filmDetail";
     }
-  /*   @PostMapping("/puntuarFilm")
+
+    @PostMapping("/puntuarFilm")
      public String puntuarFilm(@RequestParam("filmID") Long filmId,
                                @RequestParam("rating") int rating,
                                Model model){
@@ -58,6 +58,5 @@ public class FilmDetail {
         }
         return "redirect:/film/" + filmId;
     }
-*/
 }
 

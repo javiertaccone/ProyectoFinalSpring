@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="d6cbda59-bec4-4e4e-b5f8-3e75b81737e9" name="MySQL Mapping">
+      <data-sources db="07ed51d9-31f6-4b37-8329-13064e6018d5" />
+      <scope>
+        <node kind="schema" qname="cine" />
+      </scope>
+    </mapping>
+  </component>
+</project>

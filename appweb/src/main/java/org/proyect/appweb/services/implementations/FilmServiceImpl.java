@@ -71,7 +71,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film findByID(Long id) {
-        return filmDAO.findById(String.valueOf(id)).orElse(null); // Asegúrate de que filmDAO tenga este método
+        return filmDAO.findById(String.valueOf(id)).orElse(null);
     }
 
 
