@@ -4,9 +4,11 @@ import org.proyect.serviciorest.dto.RatingDTO;
 
 
 public interface RatingService {
-    void crearRating(RatingDTO ratingDTO);
-
-    double obtenerMedia(Long filmId);
-
     boolean usuarioYaCalifico(Long userId, Long filmId);
+
+    void registerRating(RatingDTO ratingDTO);
+
+    double calcularAverage(Long filmId);
+
+    int buscarScore (Long userId, Long filmID);
 }

@@ -14,7 +14,7 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") // Nombre de la columna en la tabla
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "film_id", nullable = false)

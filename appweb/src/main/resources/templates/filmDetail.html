@@ -17,7 +17,6 @@
 <body>
 <div class="container mt-4">
     <div class="row">
-        <!-- Columna para el póster -->
         <div class="col-md-8 text-center">
             <img
                     th:src="@{${film.poster}}"
@@ -26,7 +25,6 @@
             />
         </div>
 
-        <!-- Columna para la información de la película -->
         <div class="col-md-4">
             <h1 class="mb-3" th:text="${film.title}"></h1>
             <p class="lead" th:text="'Año de Estreno: ' + ${film.releaseYear}"></p>
@@ -38,16 +36,27 @@
             <ul>
                 <li th:each="actor : ${film.actors}" th:text="${actor.name + ' ' + actor.surname}"></li>
             </ul>
+            <h3>Average Rating</h3>
+            <p th:text="${averageRating}"></p>
+            <div th:if="${success}">
+                <p th:text="${success}"></p>
+            </div>
+            <div th:if="${error}">
+                <p th:text="${error}"></p>
+            </div>
+            <p th:if="${personalRating != null && personalRating > 0}">
+                Tu calificación: <span th:text="${personalRating}"></span>
+            </p>
 
-            <form th:action="@{/puntuarFilm}" method="post" class="form-group">
+            <form th:action="@{/film/${id}}" method="post" class="form-group">
                 <input type="hidden" name="filmId" th:value="${film.id}"/>
-                <select class="form-control" required>
+                <select name="rating" class="form-control" required>
                     <option value="" disabled selected>Selecciona una puntuación</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
                 </br>
                 <button type="submit" class="btn btn-primary">Valorar Película</button>

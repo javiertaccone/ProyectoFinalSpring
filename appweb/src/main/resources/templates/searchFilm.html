@@ -44,7 +44,6 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${film.title}"></h5>
                             <p class="card-text" th:text="'Director: ' + ${film.director.name + ' ' + film.director.surname}"></p>
-                            <!-- Mostrar actores -->
                             <p class="card-text">
                                 <span th:each="actor, iterStat : ${film.actors}" th:text="${iterStat.index > 0 ? ', ' : ''} + ${actor.name + ' ' + actor.surname}"></span>
                             </p>

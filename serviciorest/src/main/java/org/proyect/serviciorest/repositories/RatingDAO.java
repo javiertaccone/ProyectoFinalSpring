@@ -11,7 +11,8 @@ public interface RatingDAO extends JpaRepository <Rating, Long> {
 
     boolean existsByUserIdAndFilmId(Long userId, Long filmId);
 
-    List<Rating> findByFilmId(Long filmId);
+    List<Rating> findByFilmId(Long filmID);
 
-    Double findAvgScoreByFilmId(Long filmId);
+    Rating findByUserIdAndFilmId(Long userId, Long filmID);
+
 }
