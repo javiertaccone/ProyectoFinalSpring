@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -23,6 +24,12 @@ public class JwtConfiguration {
         return new NimbusJwtEncoder(
                 new ImmutableSecret<>(
                     new SecretKeySpec(jwtConfigurationProperties.secret().getBytes(),  "HMAC")));
+    }
+
+    @Bean
+    public NimbusJwtDecoder nimbusJwtDecoder(){
+        return NimbusJwtDecoder.withSecretKey(new SecretKeySpec(jwtConfigurationProperties.secret().getBytes(), "HMAC"))
+                .build();
     }
 
     @Bean
