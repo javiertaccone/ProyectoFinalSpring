@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 public class UserLoginDTO {
 
-    @NotBlank
-    @Size(max = 20)
+
     private String identificador;
 
     @NotBlank

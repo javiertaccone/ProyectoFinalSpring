@@ -46,6 +46,4 @@ public class Rating {
                     .body("Error al procesar la calificación");
         }
     }
-
-
 }
