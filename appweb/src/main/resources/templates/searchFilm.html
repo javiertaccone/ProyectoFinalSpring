@@ -6,6 +6,13 @@
     <title>Buscar Películas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <div th:replace="header2 :: myheader2"></div>
+    <style>
+        .btn-full-width {
+            width: 100%;
+            text-align: center;
+            border-radius: 0 0 4px 4px;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-4">
@@ -27,7 +34,6 @@
         <h2 class="mb-4">Resultados de la búsqueda:</h2>
         <div class="row">
             <div th:each="film : ${films}" class="col-md-3 mb-4">
-                <!-- Envolvemos la tarjeta en un enlace para redirigir a la vista de detalle -->
                 <a th:href="@{/film/{id}(id=${film.id})}" class="text-decoration-none">
                     <div class="card">
                         <img
@@ -50,7 +56,14 @@
                             <p class="card-text" th:text="'Estreno: ' + ${film.releaseYear}"></p>
                         </div>
                     </div>
+
                 </a>
+                <div th:if="${rol != null}">
+                    <form th:id="'editFilmForm_' + ${film.id}" method="get" th:action="@{/editFilm/{id}(id=${film.id})}">
+                        <input type="hidden" name="filmId" th:value="${film.id}" />
+                        <button type="submit" class="btn btn-primary btn-full-width">Edit Film</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

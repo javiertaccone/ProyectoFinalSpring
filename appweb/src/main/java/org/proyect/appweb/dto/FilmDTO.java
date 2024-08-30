@@ -9,18 +9,13 @@ import java.util.List;
 @Data
 public class FilmDTO {
 
-    @NotBlank
     private String title;
 
-    @NotNull
     private Integer releaseYear;
 
-    @NotNull
     private Long directorID;
 
-    @NotBlank
     private String poster;
 
-    @NotNull
     private List<Long> actorsID;
 }

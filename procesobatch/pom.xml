@@ -12,7 +12,7 @@
 	<artifactId>procesobatch</artifactId>
 	<version>1.0.0</version>
 	<name>procesobatch</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Proceso Batch</description>
 	<packaging>jar</packaging>
 
 	<url/>

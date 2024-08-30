@@ -3,6 +3,7 @@ package org.proyect.serviciorest.config;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
 import java.nio.file.Path;
 import java.util.List;
 
@@ -10,8 +11,13 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "application.rest")
 public class RestApiConfigurationProperties {
+    private String baseUrl;
     private Path basePath;
     private List<User> users;
+
+    public void setBaseUrl(String baseUrl) { // <-- Y agrega este setter
+        this.baseUrl = baseUrl;
+    }
 
     public void setBasePath(Path basePath) {
         this.basePath = basePath;

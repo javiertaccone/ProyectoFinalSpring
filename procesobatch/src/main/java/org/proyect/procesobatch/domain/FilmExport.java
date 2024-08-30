@@ -5,26 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table (name = "Film_Exports")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class FilmExport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "exportedAt")
-    private LocalDate exportedAt;
+    private Long jobId;
+    private Long filmId;
+    private LocalDateTime exportedAt;
 
-    @Column (name = "filmid")
-    private Long filmid;
-
-    @Column (name = "jobid")
-    private Integer jobid;
-
+    public FilmExport(long l, Long id, LocalDateTime now) {
+    }
 }

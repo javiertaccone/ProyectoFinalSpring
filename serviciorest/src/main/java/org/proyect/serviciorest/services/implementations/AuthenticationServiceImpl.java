@@ -9,6 +9,7 @@ import org.proyect.serviciorest.services.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,11 +26,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     @Override
-    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO authenticationRequesDTO) {
+    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO authenticationRequestDTO)  {
 
-            Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationRequesDTO.getUsername(),
-                        authenticationRequesDTO.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(
+
+                new UsernamePasswordAuthenticationToken(authenticationRequestDTO.getUsername(),
+                        authenticationRequestDTO.getPassword()));
+
+        System.out.println("authentication.isAuthenticated() " + authentication.isAuthenticated());
+
+
         UserDetails userDetails = (UserDetails) authentication.getPrincipal() ;
 
         Jwt jwt = jwtService.generateToken(userDetails);

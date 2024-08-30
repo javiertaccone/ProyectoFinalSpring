@@ -1,6 +1,8 @@
 package org.proyect.appweb.config;
 
 import lombok.RequiredArgsConstructor;
+import org.proyect.appweb.services.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,11 +14,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,8 +45,9 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll
-                )
+                .logout(LogoutConfigurer::permitAll)
+                .addFilterAfter(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Agrega el filtro personalizado
+                .userDetailsService(customUserDetailsService)
                 .build();
     }
 

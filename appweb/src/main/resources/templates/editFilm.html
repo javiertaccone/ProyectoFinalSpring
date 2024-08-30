@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Edición</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <div th:replace="header2 :: myheader2"></div>
+    <style>
+        .img-container {
+            height: 630px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="mb-4">Edita una película</h1>
+            <div th:if="${message != null}" class="alert alert-success">
+                <p th:text="${message}"></p>
+            </div>
+
+            <form th:action="@{/editFilm}" th:object="${editFilm}" method="post">
+                <input type="hidden" id="id" name="id" th:value="${editFilm.id}" />
+                <div class="form-group">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="Edita el título de la película" th:value="${editFilm.title}" />
+                </div>
+                <div class="form-group">
+                    <label for="releaseYear">Año de Estreno:</label>
+                    <input type="text" id="releaseYear" th:field="*{releaseYear}" class="form-control" placeholder="Edita el año de estreno" th:value="${editFilm.releaseYear}"/>
+                </div>
+                <div class="form-group">
+                    <label for="poster">Poster:</label>
+                    <input type="text" id="poster" th:field="*{poster}" class="form-control" placeholder="Edita la URL del poster" th:value="${editFilm.poster}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="directorID">Director:</label>
+                    <select name="directorID" id="directorID" class="form-control">
+                        <option th:each="director : ${directors}" th:field="*{directorID}" th:value="${director.id}" th:text="${director.name + ' ' + director.surname}" th:selected="${director.id == editFilm.directorID}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="actorsID">Actores:</label>
+                    <select name="actorsID" multiple="true" id="actorsID" class="form-control">
+                        <option th:each="actor : ${actors}"  th:value="${actor.id}" th:text="${actor.name + ' ' + actor.surname}" th:selected="${editFilm.actorsID.contains(actor.id)}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+        <div class="col-md-6 text-center">
+            <img th:src="@{${editFilm.poster}}" alt="Poster de la película" class="img-fluid img-container"/>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

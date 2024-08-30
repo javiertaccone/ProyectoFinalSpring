@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de la Película</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Incluye tu cabecera aquí -->
     <div th:replace="header2 :: myheader2"></div>
     <style>
         .img-container {
@@ -44,9 +43,13 @@
             <div th:if="${error}">
                 <p th:text="${error}"></p>
             </div>
-            <p th:if="${personalRating != null && personalRating > 0}">
-                Tu calificación: <span th:text="${personalRating}"></span>
-            </p>
+            <p>Tu calificación: <span th:text="${personalRating}"></span></p>
+            <div th:if="${guardado != null}" class="alert alert-success">
+                <p th:text="${guardado}"></p>
+            </div>
+            <div th:if="${errorcalificacion != null}" class="alert alert-danger">
+                <p th:text="${errorcalificacion}"></p>
+            </div>
 
             <form th:action="@{/film/${id}}" method="post" class="form-group">
                 <input type="hidden" name="filmId" th:value="${film.id}"/>
